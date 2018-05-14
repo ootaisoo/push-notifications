@@ -9,10 +9,15 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     private static final String LOG_TAG = MyFirebaseInstanceIDService.class.getSimpleName();
 
+    public MyFirebaseInstanceIDService() {
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Log.d(LOG_TAG, "token: " + token);
+    }
+
     @Override
     public void onTokenRefresh() {
         String token = FirebaseInstanceId.getInstance().getToken();
-        Log.e(LOG_TAG, "Refreshed token: " + token);
+        Log.d(LOG_TAG, "Refreshed token: " + token);
         sendRegistrationToServer(token);
     }
 
