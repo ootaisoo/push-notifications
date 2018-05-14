@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "989024242997",
+    "firebase_url": "https://demoproject-cb6bf.firebaseio.com",
+    "project_id": "demoproject-cb6bf",
+    "storage_bucket": "demoproject-cb6bf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989024242997:android:d39755cb72f0d2b8",
+        "android_client_info": {
+          "package_name": "com.example.developer.pushnotificationdemoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "989024242997-q5lm393f3pvsfl69qbac57qlrsrm69do.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDX0E4eDkMGz_PW6vaMxxaYs57vJzyBKHk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
