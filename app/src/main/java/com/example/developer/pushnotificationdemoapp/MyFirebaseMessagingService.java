@@ -22,6 +22,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String LOG_TAG = MyFirebaseMessagingService.class.getSimpleName();
 
+    private Intent intent;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -36,11 +38,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String body = data.get("body");
         String room = data.get("Room");
 
-//        Intent intent = new Intent("custom-event-name");
-//        intent.putExtra("text", value);
-//
-//        LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(this);
-//        broadcastManager.sendBroadcast(intent);
+        intent = new Intent("custom-event-name");
+        intent.putExtra("Nick", nick);
+        intent.putExtra("body", body);
+        intent.putExtra("Room", room);
+
+        LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(this);
+        broadcastManager.sendBroadcast(intent);
 
         getNotificationManager().notify(new Random().nextInt(), getNotification(getPendingIntent(nick, body, room)));
     }
@@ -55,26 +59,22 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentTitle("New message from server")
                 .setContentText("message")
                 .setSmallIcon(R.drawable.uf_logo_medium)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setContentIntent(pendingIntent)
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setFullScreenIntent(pendingIntent, true)
                 .build();
     }
 
     public PendingIntent getPendingIntent(String nick, String body, String room){
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.putExtra("Nick", nick);
-        intent.putExtra("body", body);
-        intent.putExtra("Room", room);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        return  pendingIntent;
+        return PendingIntent.getActivity(this, 0, intent, 0);
     }
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "channel_name";
             String description = "channel_description";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
